@@ -26,4 +26,40 @@ public class RentalBusinessRules {
             throw new BusinessException(response.getMessage());
         }
     }
+
+    /*ASENKRON OLDUĞU İÇİN ÇALIŞTIRAMADIK :(((
+  public void ensureCarIsAvailable(UUID carId) {
+
+        final ClientResponse[] response = new ClientResponse[1];
+        final int[] flag = {5};
+
+        TimerTask task = new TimerTask() {
+            public synchronized void  run() {
+
+                try {
+                    log.info("try worked!!");
+                    response[0] =client.checkIfCarAvailable(carId);
+                    flag[0] =-1;
+
+
+                } catch (RuntimeException e) {
+                    flag[0]--;
+                    if(flag[0] ==0){
+                        throw e;
+                    }
+
+
+                }
+
+            }
+        };
+
+        Timer timer = new Timer("Timer");
+        long delay = 3000L;
+
+        timer.schedule(task, delay, 5);
+
+    }
+
+ */
 }

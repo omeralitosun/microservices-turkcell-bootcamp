@@ -17,3 +17,4 @@ public class CreateBrandResponse {
     private UUID id;
     private String name;
 }
+

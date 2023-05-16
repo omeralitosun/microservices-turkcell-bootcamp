@@ -2,6 +2,9 @@ package com.kodlamaio.inventoryservice.business.concretes;
 
 import com.kodlamaio.commonpackage.events.inventory.CarCreatedEvent;
 import com.kodlamaio.commonpackage.events.inventory.CarDeletedEvent;
+import com.kodlamaio.commonpackage.utils.dto.ClientResponse;
+import com.kodlamaio.commonpackage.utils.exceptions.BusinessException;
+import com.kodlamaio.commonpackage.utils.kafka.producer.KafkaProducer;
 import com.kodlamaio.commonpackage.utils.mappers.ModelMapperService;
 import com.kodlamaio.inventoryservice.business.abstracts.CarService;
 import com.kodlamaio.inventoryservice.business.dto.requests.create.CreateCarRequest;
@@ -13,7 +16,6 @@ import com.kodlamaio.inventoryservice.business.dto.responses.update.UpdateCarRes
 import com.kodlamaio.inventoryservice.business.rules.CarBusinessRules;
 import com.kodlamaio.inventoryservice.entities.Car;
 import com.kodlamaio.inventoryservice.entities.enums.State;
-import com.kodlamaio.inventoryservice.business.kafka.producer.InventoryProducer;
 import com.kodlamaio.inventoryservice.repository.CarRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class CarManager implements CarService {
     private final CarRepository repository;
     private final ModelMapperService mapper;
     private final CarBusinessRules rules;
-    private final InventoryProducer producer;
+    private final KafkaProducer producer;
 
     @Override
     public List<GetAllCarsResponse> getAll() {
@@ -53,12 +55,10 @@ public class CarManager implements CarService {
     public CreateCarResponse add(CreateCarRequest request) {
         var car = mapper.forRequest().map(request, Car.class);
         car.setId(UUID.randomUUID());
-        car.setState(State.AVAILABLE);
-        var carCreate = repository.save(car);
-
-        sendKafkaCarCreatedEvent(carCreate);
-
-        var response = mapper.forResponse().map(carCreate, CreateCarResponse.class);
+        car.setState(State.Available);
+        var createdCar = repository.save(car);
+        sendKafkaCarCreatedEvent(createdCar);
+        var response = mapper.forResponse().map(createdCar, CreateCarResponse.class);
 
         return response;
     }
@@ -78,13 +78,15 @@ public class CarManager implements CarService {
     public void delete(UUID id) {
         rules.checkIfCarExists(id);
         repository.deleteById(id);
-
         sendKafkaCarDeletedEvent(id);
     }
+
     @Override
-    public void checkIfCarAvailable(UUID id) {
-        rules.checkIfCarExists(id);
-        rules.checkCarAvailability(id);
+    public ClientResponse checkIfCarAvailable(UUID id) {
+        var response = new ClientResponse();
+        validateCarAvailability(id, response);
+
+        return response;
     }
 
     @Override
@@ -92,17 +94,23 @@ public class CarManager implements CarService {
         repository.changeStateByCarId(state, id);
     }
 
+    private void sendKafkaCarCreatedEvent(Car createdCar) {
+        var event = mapper.forResponse().map(createdCar, CarCreatedEvent.class);
+        producer.sendMessage(event, "car-created");
+    }
+
     private void sendKafkaCarDeletedEvent(UUID id) {
-        // CarDeletedEvent
-        producer.sendMessage(new CarDeletedEvent(id));
+        producer.sendMessage(new CarDeletedEvent(id), "car-deleted");
     }
 
-    private void sendKafkaCarCreatedEvent(Car carCreate) {
-        // CarCreatedEvent
-        var event = mapper.forResponse().map(carCreate, CarCreatedEvent.class);
-        producer.sendMessage(event);
+    private void validateCarAvailability(UUID id, ClientResponse response) {
+        try {
+            rules.checkIfCarExists(id);
+            rules.checkCarAvailability(id);
+            response.setSuccess(true);
+        } catch (BusinessException exception) {
+            response.setSuccess(false);
+            response.setMessage(exception.getMessage());
+        }
     }
-
-
-
 }

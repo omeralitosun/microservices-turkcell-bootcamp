@@ -8,12 +8,11 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetAllCarsResponse {
-
     private UUID id;
     private UUID modelId;
     private int modelYear;

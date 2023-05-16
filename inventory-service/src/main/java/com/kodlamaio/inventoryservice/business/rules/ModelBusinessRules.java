@@ -1,6 +1,5 @@
 package com.kodlamaio.inventoryservice.business.rules;
 
-import com.kodlamaio.inventoryservice.repository.CarRepository;
 import com.kodlamaio.inventoryservice.repository.ModelRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

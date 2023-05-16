@@ -1,6 +1,5 @@
 package com.kodlamaio.inventoryservice.api.controllers;
 
-
 import com.kodlamaio.inventoryservice.business.abstracts.ModelService;
 import com.kodlamaio.inventoryservice.business.dto.requests.create.CreateModelRequest;
 import com.kodlamaio.inventoryservice.business.dto.requests.update.UpdateModelRequest;

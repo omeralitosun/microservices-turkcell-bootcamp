@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateBrandRequest {
@@ -16,3 +16,4 @@ public class UpdateBrandRequest {
     @Size(min = 2, max = 20)
     private String name;
 }
+

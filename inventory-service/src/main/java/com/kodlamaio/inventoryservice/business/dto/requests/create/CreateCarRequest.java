@@ -13,22 +13,19 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateCarRequest {
-
     @NotNull
     private UUID modelId;
-    @NotFutureYear
     @Min(value = 2000)
+    @NotFutureYear
     private int modelYear;
-    @NotNull
     @NotBlank
     @Pattern(regexp = Regex.Plate)
     private String plate;
     @Min(value = 1)
     private double dailyPrice;
 }
-

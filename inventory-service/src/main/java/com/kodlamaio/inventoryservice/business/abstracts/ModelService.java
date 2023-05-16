@@ -7,7 +7,6 @@ import com.kodlamaio.inventoryservice.business.dto.responses.get.GetAllModelsRes
 import com.kodlamaio.inventoryservice.business.dto.responses.get.GetModelResponse;
 import com.kodlamaio.inventoryservice.business.dto.responses.update.UpdateModelResponse;
 
-
 import java.util.List;
 import java.util.UUID;
 

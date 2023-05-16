@@ -7,12 +7,12 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllFilterResponse {
-    private UUID id;
+public class GetAllFiltersResponse {
+    private String id;
     private UUID carId;
     private UUID modelId;
     private UUID brandId;

@@ -7,8 +7,8 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetModelResponse {
@@ -16,4 +16,3 @@ public class GetModelResponse {
     private UUID brandId;
     private String name;
 }
-

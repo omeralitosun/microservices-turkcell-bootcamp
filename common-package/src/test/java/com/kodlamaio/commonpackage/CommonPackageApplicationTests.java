@@ -1,10 +1,10 @@
-package com.kodlamaio.commenpackage;
+package com.kodlamaio.commonpackage;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CommenPackageApplicationTests {
+class CommonPackageApplicationTests {
 
 	@Test
 	void contextLoads() {

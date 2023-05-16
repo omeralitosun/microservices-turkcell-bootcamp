@@ -47,7 +47,7 @@ public class ModelManager implements ModelService {
     @Override
     public CreateModelResponse add(CreateModelRequest request) {
         var model = mapper.forRequest().map(request, Model.class);
-        model.setId(UUID.randomUUID());
+        model.setId(null);
         repository.save(model);
         var response = mapper.forResponse().map(model, CreateModelResponse.class);
 
@@ -70,6 +70,4 @@ public class ModelManager implements ModelService {
         rules.checkIfModelExists(id);
         repository.deleteById(id);
     }
-
-
 }

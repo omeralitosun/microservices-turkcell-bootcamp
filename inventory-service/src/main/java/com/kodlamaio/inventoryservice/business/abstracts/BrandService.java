@@ -7,7 +7,6 @@ import com.kodlamaio.inventoryservice.business.dto.responses.get.GetAllBrandsRes
 import com.kodlamaio.inventoryservice.business.dto.responses.get.GetBrandResponse;
 import com.kodlamaio.inventoryservice.business.dto.responses.update.UpdateBrandResponse;
 
-
 import java.util.List;
 import java.util.UUID;
 

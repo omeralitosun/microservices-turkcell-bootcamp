@@ -8,12 +8,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = NotFutureYearValidator.class)
 public @interface NotFutureYear {
-    String message() default "Model year value cannot be in the future";
-    //? Farklı kullanıcı gruplarına özelleştirilmiş ilemler veya özellikler tanımlamak için kullanılır.
+    String message() default "Year value cannot be in the future";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

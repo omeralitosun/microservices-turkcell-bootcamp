@@ -1,6 +1,5 @@
 package com.kodlamaio.inventoryservice.entities;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +24,7 @@ public class Model {
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
     @OneToMany(mappedBy = "model", cascade = CascadeType.ALL)
     private List<Car> cars;
 }

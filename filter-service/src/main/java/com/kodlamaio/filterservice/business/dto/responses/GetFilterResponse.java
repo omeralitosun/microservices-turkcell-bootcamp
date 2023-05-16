@@ -7,12 +7,12 @@ import lombok.Setter;
 
 import java.util.UUID;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetFilterResponse {
-    private UUID id;
+    private String id;
     private UUID carId;
     private UUID modelId;
     private UUID brandId;
@@ -23,4 +23,3 @@ public class GetFilterResponse {
     private double dailyPrice;
     private String state;
 }
-

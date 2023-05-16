@@ -1,14 +1,13 @@
-package com.kodlamaio.commenpackage;
+package com.kodlamaio.commonpackage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CommenPackageApplication {
+public class CommonPackageApplication {
 
 	public static void main(String[] args) {
-
-		SpringApplication.run(CommenPackageApplication.class, args);
+		SpringApplication.run(CommonPackageApplication.class, args);
 	}
 
 }

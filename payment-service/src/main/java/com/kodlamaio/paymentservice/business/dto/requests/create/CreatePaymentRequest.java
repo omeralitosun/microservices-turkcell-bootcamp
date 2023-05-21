@@ -1,30 +1,18 @@
-package com.kodlamaio.rentalservice.business.dto.requests;
+package com.kodlamaio.paymentservice.business.dto.requests.create;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
-import jakarta.validation.constraints.*;
 
-import java.util.UUID;
-
-@Setter
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
-public class CreateRentalRequest {
-    @NotNull
-    private UUID carId;
-    @Min(1)
-    private double dailyPrice;
-    @Min(1)
-    private int rentedForDays;
-
-    // Card information
+@NoArgsConstructor
+@Getter
+@Setter
+public class CreatePaymentRequest
+{
     @NotBlank(message = "Card number cant be empty...")
     @Length(min=16, max=16, message = "The card number must have a length of 16...")
     private String cardNumber;
@@ -43,4 +31,6 @@ public class CreateRentalRequest {
     @NotBlank
     @Length(min=3, max = 3, message = "The card CVV numbert must have a length of 3...")
     private String cardCvv;
+    @DecimalMin(value = "0.01")
+    private double balance;
 }

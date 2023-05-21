@@ -33,7 +33,7 @@ public class RentalsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CreateRentalResponse add(@Valid @RequestBody CreateRentalRequest request) {
+    public CreateRentalResponse add(@Valid @RequestBody CreateRentalRequest request) throws InterruptedException {
         return service.add(request);
     }
 

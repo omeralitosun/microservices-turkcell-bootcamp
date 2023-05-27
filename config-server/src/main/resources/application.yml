@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:///Users/Omer/Desktop/config-server-t1-master
+server:
+  port: 8888
